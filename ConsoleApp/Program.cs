@@ -14,15 +14,6 @@ namespace ConsoleApp
         {
 
             ItemsRepository repository = new DataLayer.ItemsRepository();
-            //repository.Put(new ItemModel(
-            //    "SomeFile",
-            //    @"C:\Users\andrew\Documents\toTest\SomeFile.txt",
-            //    @"C:\Users\andrew\Documents\toTest\SomeFile.zip",
-            //    ItemModel.ReccurrenceEnum.Daily
-            //    ));
-
-            //repository.SaveAs("rep.xml");
-
 
             repository.Load("rep.xml");
             FileSystemService.ZipFiles(repository.Models.FirstOrDefault().Source,
