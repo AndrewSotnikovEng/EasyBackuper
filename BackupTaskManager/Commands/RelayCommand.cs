@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace TabsHolder.Commands
+namespace BackupTaskManager.Commands
 {
     public class RelayCommand : ICommand
     {

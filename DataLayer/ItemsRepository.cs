@@ -1,6 +1,7 @@
 ﻿using DataLayer.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,20 +15,25 @@ namespace DataLayer
     {
         string filePath;
 
-        public List<ItemModel> Models { get; set; } = new List<ItemModel>();
+        public ObservableCollection<ItemModel> Models { get; set; } = new ObservableCollection<ItemModel>();
 
         public void Load(string filePath)
         {
-            XmlSerializer ser = new XmlSerializer(typeof(List<ItemModel>));
+            if (!File.Exists (filePath))
+            {
+                SaveAs(filePath);
+            }
+
+            XmlSerializer ser = new XmlSerializer(typeof(ObservableCollection<ItemModel>));
             FileStream fs = new FileStream(filePath, FileMode.Open);
-            Models = (List<ItemModel>) ser.Deserialize(fs);
+            Models = (ObservableCollection<ItemModel>) ser.Deserialize(fs);
             fs.Close();
             
         }
 
         public void Save()
         {
-            XmlSerializer ser = new XmlSerializer(typeof(List<ItemModel>));
+            XmlSerializer ser = new XmlSerializer(typeof(ObservableCollection<ItemModel>));
             FileStream fs = new FileStream(filePath, FileMode.Create);
             ser.Serialize(fs, Models);
             fs.Close();

@@ -44,11 +44,15 @@ namespace BackupTaskManager
         public MainWindowViewModel()
         {
             repository.Load("rep.xml");
-            foreach (var item in repository.Models)
-            {
-                TaskItems.Add(item);
-            }
+            TaskItems = repository.Models;
             WireFilter();
+
+            MessengerStatic.TaskItemWindowClosed += MessengerStatic_TaskItemWindowClosed;
+        }
+
+        private void MessengerStatic_TaskItemWindowClosed(object obj)
+        {
+            TaskItems.Add((ItemModel)obj);
         }
 
         public void WireFilter()

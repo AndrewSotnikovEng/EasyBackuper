@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BackupTaskManager.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,13 @@ namespace BackupTaskManager
             InitializeComponent();
             MainWindowViewModel mainWindowViewModel = new MainWindowViewModel();
             DataContext = mainWindowViewModel;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            TaskItemWindow taskItemWin = new TaskItemWindow();
+            taskItemWin.Show();
+
         }
     }
 }
