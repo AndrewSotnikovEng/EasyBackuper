@@ -1,4 +1,5 @@
 ﻿using BackupTaskManager.View;
+using DataLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,13 @@ namespace BackupTaskManager
             InitializeComponent();
             MainWindowViewModel mainWindowViewModel = new MainWindowViewModel();
             DataContext = mainWindowViewModel;
+            Closing += MainWindow_Closing;
+        }
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -34,5 +42,7 @@ namespace BackupTaskManager
             taskItemWin.Show();
 
         }
+
+
     }
 }

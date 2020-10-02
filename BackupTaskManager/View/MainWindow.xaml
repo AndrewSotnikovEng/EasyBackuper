@@ -44,7 +44,7 @@
                     <ImageBrush ImageSource="/resources/edit.png"/>
                 </Button.Background>
             </Button>
-            <Button Content="" Style="{StaticResource CommandButton}">
+            <Button Content="" Style="{StaticResource CommandButton}" Command="{Binding DeleteButtonCmd}">
                 <Button.Background>
                     <ImageBrush ImageSource="/resources/delete.png"/>
                 </Button.Background>
@@ -54,7 +54,7 @@
             <TextBox Text="{Binding Path=FilterWord, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FilterInput}"/>
         </StackPanel>
         <ListBox HorizontalAlignment="Left" SelectionMode="Extended" 
-        ItemsSource="{Binding TaskItems}" IsSynchronizedWithCurrentItem="true" Style="{StaticResource TaskItemsListBox}">
+        ItemsSource="{Binding TaskItems}" IsSynchronizedWithCurrentItem="true" Style="{StaticResource TaskItemsListBox}" SelectedItem="{Binding SelectedTaskItem, Mode=OneWayToSource}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

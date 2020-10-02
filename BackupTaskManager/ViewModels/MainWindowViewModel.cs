@@ -1,4 +1,5 @@
-﻿using BackupTaskManager.ViewModels;
+﻿using BackupTaskManager.Commands;
+using BackupTaskManager.ViewModels;
 using DataLayer;
 using DataLayer.Model;
 using System;
@@ -14,6 +15,8 @@ namespace BackupTaskManager
 
         ItemsRepository repository = new DataLayer.ItemsRepository();
         ICollectionView view;
+
+        ItemModel selectedTaskItem;
 
         ObservableCollection<ItemModel> taskItems = new ObservableCollection<ItemModel>();
         private string filterWord;
@@ -41,19 +44,41 @@ namespace BackupTaskManager
             }
         }
 
+        public ItemModel SelectedTaskItem {
+            get => selectedTaskItem; 
+            set => selectedTaskItem = value; }
+
+        public RelayCommand DeleteButtonCmd { get; set; }
         public MainWindowViewModel()
         {
             repository.Load("rep.xml");
             TaskItems = repository.Models;
             WireFilter();
 
+            DeleteButtonCmd = new RelayCommand(o => { DeleteAction(); }, DeleteBtnCanExecute );
+
             MessengerStatic.TaskItemWindowClosed += MessengerStatic_TaskItemWindowClosed;
+        }
+
+        private bool DeleteBtnCanExecute(object arg)
+        {
+            bool result = (SelectedTaskItem != null) ? true : false;
+
+            return result;
+        }
+
+        private void DeleteAction()
+        {
+            TaskItems.Remove(SelectedTaskItem);
         }
 
         private void MessengerStatic_TaskItemWindowClosed(object obj)
         {
             TaskItems.Add((ItemModel)obj);
         }
+
+
+
 
         public void WireFilter()
         {

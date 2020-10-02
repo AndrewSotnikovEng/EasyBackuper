@@ -16,6 +16,12 @@ namespace ConsoleApp
             ItemsRepository repository = new DataLayer.ItemsRepository();
 
             repository.Load("rep.xml");
+
+            foreach (var item in repository.Models)
+            {
+       
+            }
+
             FileSystemService.ZipFiles(repository.Models.FirstOrDefault().Source,
                 repository.Models.FirstOrDefault().Destination);
 
