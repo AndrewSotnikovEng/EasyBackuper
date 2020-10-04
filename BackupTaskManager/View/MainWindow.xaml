@@ -39,7 +39,7 @@
                     <ImageBrush ImageSource="/resources/add.png"/>
                 </Button.Background>
             </Button>
-            <Button Content="" Style="{StaticResource CommandButton}">
+            <Button Content="" Style="{StaticResource CommandButton}" Command="{Binding EditButtonCmd}">
                 <Button.Background>
                     <ImageBrush ImageSource="/resources/edit.png"/>
                 </Button.Background>

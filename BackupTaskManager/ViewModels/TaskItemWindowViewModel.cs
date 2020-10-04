@@ -15,20 +15,39 @@ namespace BackupTaskManager.ViewModels
         public string Source { get; set; }
         public string Destination { get; set; }
 
-        public ItemModel.ReccurrenceEnum SelectedReccurrecne { get; set; }
+        public TaskItemModel.ReccurrenceEnum SelectedReccurrecne { get; set; }
 
+        TaskItemModel sourceTaskItem;
 
         public RelayCommand CommitTaskItemCmd { get; }
         public TaskItemWindowViewModel()
         {
-            CommitTaskItemCmd = new RelayCommand(o => { CommitTask(); });
-
+            CommitTaskItemCmd = new RelayCommand(o => { CommitTaskInAddMode(); });
         }
 
-        public void CommitTask()
+        public TaskItemWindowViewModel(TaskItemModel selectedItem)
         {
-            ItemModel taskItem = new ItemModel(Name, Source, Destination, ItemModel.ReccurrenceEnum.Hourly);
-            MessengerStatic.NotifyTaskWindowClosed(taskItem);
+            Name = selectedItem.Name;
+            Source = selectedItem.Source;
+            Destination = selectedItem.Destination;
+
+            sourceTaskItem = new TaskItemModel(Name, Source, Destination, TaskItemModel.ReccurrenceEnum.Hourly);
+
+            CommitTaskItemCmd = new RelayCommand(o => { CommitTaskInEditMode(); });
+        }
+
+        private void CommitTaskInEditMode()
+        {
+            TaskItemModel taskItem = new TaskItemModel(Name, Source, Destination, TaskItemModel.ReccurrenceEnum.Hourly);
+            TaskItemModel[] taskItems = { sourceTaskItem, taskItem };
+            MessengerStatic.NotifyTaskWindowInEditModeClosed(taskItems);
+        }
+
+        public void CommitTaskInAddMode()
+        {
+
+            TaskItemModel taskItem = new TaskItemModel(Name, Source, Destination, TaskItemModel.ReccurrenceEnum.Hourly);
+            MessengerStatic.NotifyTaskWindowInAddModelClosed(taskItem);
         }
 
     }

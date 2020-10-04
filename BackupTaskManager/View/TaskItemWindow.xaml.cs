@@ -1,5 +1,6 @@
 ﻿using BackupTaskManager.Commands;
 using BackupTaskManager.ViewModels;
+using DataLayer.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,12 @@ namespace BackupTaskManager.View
             InitializeComponent();
             DataContext = new TaskItemWindowViewModel();
 
+        }
 
+        public TaskItemWindow(TaskItemModel selectedItem)
+        {
+            InitializeComponent();
+            DataContext = new TaskItemWindowViewModel(selectedItem);
 
         }
 

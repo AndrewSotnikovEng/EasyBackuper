@@ -7,12 +7,25 @@ using System.Threading.Tasks;
 namespace BackupTaskManager.ViewModels
 {
     class MessengerStatic
+
+
+
     {
-        public static event Action<object> TaskItemWindowClosed;
+        public static event Action<object> TaskItemWindowClosedInAddMode;
 
-        public static void NotifyTaskWindowClosed(object taskItem)
-            => TaskItemWindowClosed?.Invoke(taskItem);
+        public static void NotifyTaskWindowInAddModelClosed(object taskItem)
+            => TaskItemWindowClosedInAddMode?.Invoke(taskItem);
 
+
+        public static event Action<object> TaskItemWindowClosedInEditMode;
+        public static void NotifyTaskWindowInEditModeClosed(object taskItem)
+            => TaskItemWindowClosedInEditMode?.Invoke(taskItem);
+
+
+        public static event Action<object> TaskItemWindowOpened;
+
+        public static void NotifyTaskWindowOpened(object taskItem)
+            => TaskItemWindowOpened?.Invoke(taskItem);
 
     }
 }

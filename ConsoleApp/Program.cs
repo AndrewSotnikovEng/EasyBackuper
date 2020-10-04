@@ -13,7 +13,7 @@ namespace ConsoleApp
         static void Main(string[] args)
         {
 
-            ItemsRepository repository = new DataLayer.ItemsRepository();
+            TaskItemsRepository repository = new DataLayer.TaskItemsRepository();
 
             repository.Load("rep.xml");
 

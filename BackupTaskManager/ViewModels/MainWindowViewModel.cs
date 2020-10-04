@@ -13,15 +13,15 @@ namespace BackupTaskManager
     public class MainWindowViewModel : ViewModelBase
     {
 
-        ItemsRepository repository = new DataLayer.ItemsRepository();
+        TaskItemsRepository repository = new DataLayer.TaskItemsRepository();
         ICollectionView view;
 
-        ItemModel selectedTaskItem;
+        TaskItemModel selectedTaskItem;
 
-        ObservableCollection<ItemModel> taskItems = new ObservableCollection<ItemModel>();
+        ObservableCollection<TaskItemModel> taskItems = new ObservableCollection<TaskItemModel>();
         private string filterWord;
 
-        public ObservableCollection<ItemModel> TaskItems { get => taskItems; set 
+        public ObservableCollection<TaskItemModel> TaskItems { get => taskItems; set 
             { 
                 taskItems = value;
                 OnPropertyChanged("TaskItems");
@@ -44,20 +44,41 @@ namespace BackupTaskManager
             }
         }
 
-        public ItemModel SelectedTaskItem {
+        public TaskItemModel SelectedTaskItem {
             get => selectedTaskItem; 
             set => selectedTaskItem = value; }
+
+        public RelayCommand EditButtonCmd { get; set; }
+
+        internal void Save()
+        {
+            repository.Models = TaskItems;
+            repository.Save();
+        }
 
         public RelayCommand DeleteButtonCmd { get; set; }
         public MainWindowViewModel()
         {
-            repository.Load("rep.xml");
+            repository.Load("repository.xml");
             TaskItems = repository.Models;
             WireFilter();
 
+            EditButtonCmd = new RelayCommand(o => { EditCommand(); });
             DeleteButtonCmd = new RelayCommand(o => { DeleteAction(); }, DeleteBtnCanExecute );
 
-            MessengerStatic.TaskItemWindowClosed += MessengerStatic_TaskItemWindowClosed;
+            MessengerStatic.TaskItemWindowClosedInAddMode += MessengerStatic_TaskItemWindowClosedInAddMode;
+            MessengerStatic.TaskItemWindowClosedInEditMode += MessengerStatic_TaskItemWindowClosedInEditMode;
+        }
+
+        private void MessengerStatic_TaskItemWindowClosedInEditMode(object obj)
+        {
+            TaskItemModel[] arr = ((TaskItemModel[])obj);
+
+        }
+
+        private void EditCommand()
+        {
+            MessengerStatic.NotifyTaskWindowOpened(SelectedTaskItem);
         }
 
         private bool DeleteBtnCanExecute(object arg)
@@ -72,9 +93,9 @@ namespace BackupTaskManager
             TaskItems.Remove(SelectedTaskItem);
         }
 
-        private void MessengerStatic_TaskItemWindowClosed(object obj)
+        private void MessengerStatic_TaskItemWindowClosedInAddMode(object obj)
         {
-            TaskItems.Add((ItemModel)obj);
+            TaskItems.Add((TaskItemModel)obj);
         }
 
 
@@ -84,7 +105,7 @@ namespace BackupTaskManager
         {
             view = CollectionViewSource.GetDefaultView(TaskItems);
             view.Filter = o => String.IsNullOrEmpty(FilterWord) ?
-                    true : Regex.IsMatch(((ItemModel)o).Source, $"{FilterWord}", RegexOptions.IgnoreCase);
+                    true : Regex.IsMatch(((TaskItemModel)o).Source, $"{FilterWord}", RegexOptions.IgnoreCase);
         }
     }
     

@@ -11,11 +11,11 @@ using System.Xml.Serialization;
 
 namespace DataLayer
 {
-    public class ItemsRepository
+    public class TaskItemsRepository
     {
         string filePath;
 
-        public ObservableCollection<ItemModel> Models { get; set; } = new ObservableCollection<ItemModel>();
+        public ObservableCollection<TaskItemModel> Models { get; set; } = new ObservableCollection<TaskItemModel>();
 
         public void Load(string filePath)
         {
@@ -24,16 +24,24 @@ namespace DataLayer
                 SaveAs(filePath);
             }
 
-            XmlSerializer ser = new XmlSerializer(typeof(ObservableCollection<ItemModel>));
+            this.filePath = filePath;
+
+            XmlSerializer ser = new XmlSerializer(typeof(ObservableCollection<TaskItemModel>));
             FileStream fs = new FileStream(filePath, FileMode.Open);
-            Models = (ObservableCollection<ItemModel>) ser.Deserialize(fs);
+            try
+            {
+                Models = (ObservableCollection<TaskItemModel>)ser.Deserialize(fs);
+            }
+            catch (System.InvalidOperationException e)
+            {
+                Console.WriteLine("Not able to load models");
+            }
             fs.Close();
-            
         }
 
         public void Save()
         {
-            XmlSerializer ser = new XmlSerializer(typeof(ObservableCollection<ItemModel>));
+            XmlSerializer ser = new XmlSerializer(typeof(ObservableCollection<TaskItemModel>));
             FileStream fs = new FileStream(filePath, FileMode.Create);
             ser.Serialize(fs, Models);
             fs.Close();
@@ -41,15 +49,17 @@ namespace DataLayer
 
         public void SaveAs(string filePath)
         {
-            XmlSerializer ser = new XmlSerializer(typeof(List<ItemModel>));
+            XmlSerializer ser = new XmlSerializer(typeof(List<TaskItemModel>));
             TextWriter writer = new StreamWriter(filePath);
             ser.Serialize(writer, Models);
             writer.Close();
         }
 
-        public void Put(ItemModel model)
+        public void Put(TaskItemModel model)
         {
             Models.Add(model);
         }
+
+
     }
 }

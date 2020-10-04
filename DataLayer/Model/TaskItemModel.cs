@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Model
 {
-    public class ItemModel
+    public class TaskItemModel
     {
         public string Name { get; set; }
         public string Source { get; set; }
@@ -16,7 +16,7 @@ namespace DataLayer.Model
 
         public ReccurrenceEnum Reccurrence { get; set; }
 
-        public ItemModel(string name, string source, string destination, ReccurrenceEnum recurrence)
+        public TaskItemModel(string name, string source, string destination, ReccurrenceEnum recurrence)
         {
             Name = name;
             Source = source;
@@ -24,7 +24,7 @@ namespace DataLayer.Model
             Reccurrence = recurrence;
         }
 
-        public ItemModel()
+        public TaskItemModel()
         {
         }
     }
