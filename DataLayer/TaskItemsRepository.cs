@@ -49,7 +49,7 @@ namespace DataLayer
 
         public void SaveAs(string filePath)
         {
-            XmlSerializer ser = new XmlSerializer(typeof(List<TaskItemModel>));
+            XmlSerializer ser = new XmlSerializer(typeof(ObservableCollection<TaskItemModel>));
             TextWriter writer = new StreamWriter(filePath);
             ser.Serialize(writer, Models);
             writer.Close();

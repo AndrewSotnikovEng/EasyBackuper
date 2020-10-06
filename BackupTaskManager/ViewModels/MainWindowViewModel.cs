@@ -5,6 +5,7 @@ using DataLayer.Model;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Data;
 
@@ -73,6 +74,15 @@ namespace BackupTaskManager
         private void MessengerStatic_TaskItemWindowClosedInEditMode(object obj)
         {
             TaskItemModel[] arr = ((TaskItemModel[])obj);
+            for (int i = 0; i < TaskItems.Count; i++)
+            {
+                if (TaskItems.ElementAt(i).ToString() == arr[0].ToString())
+                {
+                    TaskItems.RemoveAt(i);
+                    TaskItems.Insert(i, arr[1]);
+                }
+            }
+
 
         }
 

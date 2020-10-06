@@ -27,5 +27,11 @@ namespace DataLayer.Model
         public TaskItemModel()
         {
         }
+
+        public override string ToString()
+        {
+            string result = $"Source: {Source} Destination: {Destination}";
+            return result;
+        }
     }
 }
