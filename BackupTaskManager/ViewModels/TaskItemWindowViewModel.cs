@@ -2,13 +2,15 @@
 using DataLayer.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BackupTaskManager.ViewModels
 {
-    class TaskItemWindowViewModel
+    class TaskItemWindowViewModel : IDataErrorInfo
     {
 
         public string Name { get; set; }
@@ -20,6 +22,34 @@ namespace BackupTaskManager.ViewModels
         TaskItemModel sourceTaskItem;
 
         public RelayCommand CommitTaskItemCmd { get; }
+
+        public string Error => throw new NotImplementedException();
+
+        public string this[string columnName]
+        { 
+            get
+            {
+                string error = String.Empty;
+
+                switch (columnName)
+                {
+                    case "Name":
+                        if (String.IsNullOrEmpty(Name)) error = "Empty Name";
+                        break;
+                    case "Source":
+                        if (!File.Exists(Source) && !Directory.Exists(Source)) error = "Source not exist";
+                        break;
+                    case "Destination":
+                        if (!File.Exists(Destination) && !Directory.Exists(Destination)) error = "Destination not exist";
+                        break;
+                }
+
+                return error;
+
+            }
+        
+        }
+
         public TaskItemWindowViewModel()
         {
             CommitTaskItemCmd = new RelayCommand(o => { CommitTaskInAddMode(); });

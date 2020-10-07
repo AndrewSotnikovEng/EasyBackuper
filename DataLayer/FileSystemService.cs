@@ -17,15 +17,12 @@ namespace DataLayer
             if (!File.Exists(destination) && !Directory.Exists(destination)) throw new ArgumentException("Destination is not exists");
 
 
-
-            string fileName = Path.GetFileNameWithoutExtension(source);
-            string curDate = DateTime.Now.ToString("dd_MM_yyyy");
-            string newDestination = Path.Combine(destination, $"{curDate}__{fileName}.zip");
+            string newDestination = MakeZipDestinationPath(source, destination);
 
             FileAttributes attr = File.GetAttributes(source);
             if (!attr.HasFlag(FileAttributes.Directory))
             {
-                if (Directory.Exists("source")) Directory.Delete("source", true);
+                if (Directory.Exists("source")) { Directory.Delete("source", true); }
                 Directory.CreateDirectory("source");
                 File.Copy(source,
                     Path.Combine("source", Path.GetFileName(source))
@@ -39,9 +36,16 @@ namespace DataLayer
 
                 ZipFile.CreateFromDirectory(source, newDestination);
             }
+        }
 
+        public static string MakeZipDestinationPath(string source, string destinationDir)
+        {
+            string fileName = Path.GetFileNameWithoutExtension(source);
+            string curDate = DateTime.Now.ToString("dd_MM_yyyy");
+            
+            string newDestination = Path.Combine(destinationDir, $"{curDate}__{fileName}.zip");
 
-
+            return newDestination;
         }
     }
 }

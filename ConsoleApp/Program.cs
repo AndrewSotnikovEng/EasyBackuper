@@ -21,11 +21,9 @@ namespace ConsoleApp
             foreach (var item in repository.Models)
             {
                 //get imaginated name
-                string fileName = Path.GetFileNameWithoutExtension(item.Source);
-                string curDate = DateTime.Now.ToString("dd_MM_yyyy");
-                string newDestination = Path.Combine(item.Destination, $"{curDate}__{fileName}.zip");
 
-                if (!File.Exists(newDestination))
+
+                if (!File.Exists(FileSystemService.MakeZipDestinationPath(item.Source, item.Destination)))
                 {
                     FileSystemService.ZipFiles(item.Source,
                     item.Destination);

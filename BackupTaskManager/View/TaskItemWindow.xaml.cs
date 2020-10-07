@@ -26,15 +26,25 @@ namespace BackupTaskManager.View
         {
             InitializeComponent();
             DataContext = new TaskItemWindowViewModel();
+            MessengerStatic.TaskItemWindowClosedInAddMode += CloseWin;
+
 
         }
+
 
         public TaskItemWindow(TaskItemModel selectedItem)
         {
             InitializeComponent();
             DataContext = new TaskItemWindowViewModel(selectedItem);
+            MessengerStatic.TaskItemWindowClosedInEditMode += CloseWin;
 
         }
+
+        private void CloseWin(object obj)
+        {
+            this.Close();
+        }
+
 
 
     }
