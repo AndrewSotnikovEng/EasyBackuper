@@ -17,7 +17,7 @@ namespace BackupTaskManager.ViewModels
         public string Source { get; set; }
         public string Destination { get; set; }
 
-        public TaskItemModel.ReccurrenceEnum SelectedReccurrecne { get; set; }
+        public ReccurrenceEnum SelectedReccurrecne { get; set; }
 
         TaskItemModel sourceTaskItem;
 
@@ -61,14 +61,14 @@ namespace BackupTaskManager.ViewModels
             Source = selectedItem.Source;
             Destination = selectedItem.Destination;
 
-            sourceTaskItem = new TaskItemModel(Name, Source, Destination, TaskItemModel.ReccurrenceEnum.Hourly);
+            sourceTaskItem = new TaskItemModel(Name, Source, Destination, ReccurrenceEnum.Hourly);
 
             CommitTaskItemCmd = new RelayCommand(o => { CommitTaskInEditMode(); });
         }
 
         private void CommitTaskInEditMode()
         {
-            TaskItemModel taskItem = new TaskItemModel(Name, Source, Destination, TaskItemModel.ReccurrenceEnum.Hourly);
+            TaskItemModel taskItem = new TaskItemModel(Name, Source, Destination, ReccurrenceEnum.Hourly);
             TaskItemModel[] taskItems = { sourceTaskItem, taskItem };
             MessengerStatic.NotifyTaskWindowInEditModeClosed(taskItems);
         }
@@ -76,7 +76,7 @@ namespace BackupTaskManager.ViewModels
         public void CommitTaskInAddMode()
         {
 
-            TaskItemModel taskItem = new TaskItemModel(Name, Source, Destination, TaskItemModel.ReccurrenceEnum.Hourly);
+            TaskItemModel taskItem = new TaskItemModel(Name, Source, Destination, ReccurrenceEnum.Hourly);
             MessengerStatic.NotifyTaskWindowInAddModelClosed(taskItem);
         }
 

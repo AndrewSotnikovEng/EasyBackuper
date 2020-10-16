@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BackupTaskManager.View"
+        xmlns:dl="clr-namespace:DataLayer.Model;assembly=DataLayer"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Task Item Details"
         Height="320" Width="700" Background="#272822"
@@ -35,6 +37,12 @@
             <Setter Property="Button.Height" Value="25"/>
             <Setter Property="Button.Margin" Value="0,20,20,0" />
         </Style>
+        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
+                        ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="dl:ReccurrenceEnum"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </Window.Resources>
     <StackPanel Margin="20,30,0,0">
         <StackPanel  Style="{StaticResource ItemProertyContainer}">
@@ -74,7 +82,7 @@
             <Label Width="150" Content="Destination" Style="{StaticResource TextBoxLabel}"/>
         </StackPanel>
         <StackPanel  Style="{StaticResource ItemProertyContainer}">
-            <ComboBox Style="{StaticResource ItemCombo}"/>
+            <ComboBox Style="{StaticResource ItemCombo}" ItemsSource="{Binding Source={StaticResource dataFromEnum}}"/>
             <Label Width="150" Content="Reccurrence" Style="{StaticResource TextBoxLabel}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Margin="410,20,0,0">

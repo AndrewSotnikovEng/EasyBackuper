@@ -12,7 +12,7 @@ namespace DataLayer.Model
         public string Source { get; set; }
         public string Destination { get; set; }
 
-        public enum ReccurrenceEnum { Daily, Weekly, Hourly };
+
 
         public ReccurrenceEnum Reccurrence { get; set; }
 
@@ -34,4 +34,7 @@ namespace DataLayer.Model
             return result;
         }
     }
+
+    public enum ReccurrenceEnum { Daily, Weekly, Hourly };
+
 }
