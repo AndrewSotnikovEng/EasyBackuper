@@ -1,11 +1,11 @@
-﻿using System;
+﻿using DataLayer;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataLayer;
-using DataLayer.Model;
+
 
 namespace ConsoleApp
 {
@@ -18,22 +18,12 @@ namespace ConsoleApp
 
             repository.Load("repository.xml");
 
-            foreach (var item in repository.Models)
-            {
-                //get imaginated name
+            var dailyModels = repository.Models.Where(x => x.Reccurrence == DataLayer.Model.ReccurrenceEnum.Daily).ToList();
 
+            Context dailyContext = new Context(dailyModels, new DailyBackupStrategy());
+            dailyContext.DoBackup();
 
-                if (!File.Exists(FileSystemService.MakeZipDestinationPath(item.Source, item.Destination)))
-                {
-                    FileSystemService.ZipFiles(item.Source,
-                    item.Destination);
-                } else
-                {
-                    Console.WriteLine($"{item.Name} already exists");
-                }
-            }
-
-
+            Console.ReadKey();
 
         }
     }

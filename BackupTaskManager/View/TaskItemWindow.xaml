@@ -82,7 +82,7 @@
             <Label Width="150" Content="Destination" Style="{StaticResource TextBoxLabel}"/>
         </StackPanel>
         <StackPanel  Style="{StaticResource ItemProertyContainer}">
-            <ComboBox Style="{StaticResource ItemCombo}" ItemsSource="{Binding Source={StaticResource dataFromEnum}}"/>
+            <ComboBox Style="{StaticResource ItemCombo}" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" SelectedItem="{Binding Reccurrence}"/>
             <Label Width="150" Content="Reccurrence" Style="{StaticResource TextBoxLabel}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Margin="410,20,0,0">

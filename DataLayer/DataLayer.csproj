@@ -46,7 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context.cs" />
+    <Compile Include="DailyBackupStrategy.cs" />
     <Compile Include="FileSystemService.cs" />
+    <Compile Include="IContext.cs" />
+    <Compile Include="IStrategy.cs" />
     <Compile Include="TaskItemsRepository.cs" />
     <Compile Include="Model\TaskItemModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
