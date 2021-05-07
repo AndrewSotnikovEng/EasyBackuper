@@ -1,0 +1,9 @@
+BackupTaskManager.exe
+BackupTaskManager.exe.config
+ConsoleApp.exe
+ConsoleApp.exe.config
+DataLayer.dll
+DataLayer.dll.config
+DataLayerTests.dll
+Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+repository.xml
