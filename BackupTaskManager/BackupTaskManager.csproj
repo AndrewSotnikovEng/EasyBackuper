@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>manager.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -115,6 +118,9 @@
     <Resource Include="resources\add.png" />
     <Resource Include="resources\edit.png" />
     <Resource Include="resources\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="manager.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
